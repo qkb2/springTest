@@ -1,2 +1,4 @@
-package com.example.demo.employee;public class EmployeeService {
+package com.example.demo.employee;
+
+public class EmployeeService {
 }
