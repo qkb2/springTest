@@ -32,4 +32,28 @@ public class EmployeeController {
     public @ResponseBody Iterable<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }
+
+    @GetMapping(path = "/{id}")
+    public @ResponseBody Employee getEmployee(@PathVariable Integer id) {
+        return employeeRepository.findById(id).orElseThrow(RuntimeException::new);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public @ResponseBody String deleteEmployee(@PathVariable Integer id) {
+        employeeRepository.deleteById(id);
+        return "Deleted";
+    }
+
+    @PutMapping(path = "/{id}")
+    public @ResponseBody String updateEmployee(
+            @PathVariable Integer id,
+            @RequestParam String firstName,
+            @RequestParam String lastName
+    ) {
+        Employee employee = employeeRepository.findById(id).orElseThrow(RuntimeException::new);
+        employee.setFirstName(firstName);
+        employee.setLastName(lastName);
+        employeeRepository.save(employee);
+        return "Updated";
+    }
 }
